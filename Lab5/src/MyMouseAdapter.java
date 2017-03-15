@@ -9,6 +9,13 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	
+	public boolean alreadyPassed(int x){
+		if (x==1)
+			return true;
+		else 
+			return false;
+	}
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -48,8 +55,7 @@ public class MyMouseAdapter extends MouseAdapter {
 			while (!(c instanceof JFrame)) {
 				c = c.getParent();
 				if (c == null) {
-					return;
-				}
+					return;}
 			}
 			JFrame myFrame = (JFrame)c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
@@ -81,7 +87,15 @@ public class MyMouseAdapter extends MouseAdapter {
 						} else {
 							//On the grid other than on the left column and on the top row:
 							Color newColor = null;
-							switch (generator.nextInt(5)) {
+							MyMouseAdapter n= new MyMouseAdapter();
+							int prueba =1;
+							if (n.alreadyPassed(prueba))
+							do {
+							i=generator.nextInt(5);
+							}
+							while (i!=prueba);
+							
+							switch (i) {
 							case 0:
 								newColor = Color.YELLOW;
 								break;
@@ -98,6 +112,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
 							}
+							prueba=1;
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
 						}
