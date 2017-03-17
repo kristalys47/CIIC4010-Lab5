@@ -123,10 +123,45 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.repaint();
 								}
 							}
+							if ((gridX > 0) && (gridX < 10)) {
+								for (int j = 1; j < 10; j++) {
+									myPanel.mouseDownGridX = gridX;
+									myPanel.mouseDownGridY = j;
+									bottomColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
+									newColor = null;
+									do {
+										switch (generator.nextInt(5)) {
+										case 0:
+											newColor = Color.YELLOW;
+											break;
+										case 1:
+											newColor = Color.MAGENTA;
+											break;
+										case 2:
+											newColor = Color.BLACK;
+											break;
+										case 3:
+											newColor = new Color(0x964B00); // Brown
+																			// (from
+																			// http://simple.wikipedia.org/wiki/List_of_colors)
+											break;
+										case 4:
+											newColor = new Color(0xB57EDC); // Lavender
+																			// (from
+																			// http://simple.wikipedia.org/wiki/List_of_colors)
+											break;
+										}
+									} while (bottomColor.equals(newColor));
+									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+									myPanel.repaint();
+								}
+
+							}
 						}
-						if ((gridX > 0) && (gridX < 10)) {
+						if ((gridX == 0) && (gridY == 0))
+						{
 							for (int j = 1; j < 10; j++) {
-								myPanel.mouseDownGridX = gridX;
+								myPanel.mouseDownGridX = j;
 								myPanel.mouseDownGridY = j;
 								bottomColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 								newColor = null;
@@ -155,9 +190,10 @@ public class MyMouseAdapter extends MouseAdapter {
 								} while (bottomColor.equals(newColor));
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 								myPanel.repaint();
-							}
-
+							
 						}
+						}
+						
 
 						else {
 							// On the grid other than on the left column and on
