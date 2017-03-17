@@ -9,13 +9,6 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
-	
-	public boolean alreadyPassed(int x){
-		if (x==1)
-			return true;
-		else 
-			return false;
-	}
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -55,7 +48,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			while (!(c instanceof JFrame)) {
 				c = c.getParent();
 				if (c == null) {
-					return;}
+					return;
+				}
 			}
 			JFrame myFrame = (JFrame)c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
@@ -86,16 +80,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							//On the left column and on the top row... do nothing
 						} else {
 							//On the grid other than on the left column and on the top row:
+							Color bottomColor= myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
 							Color newColor = null;
-							MyMouseAdapter n= new MyMouseAdapter();
-							int prueba =1;
-							if (n.alreadyPassed(prueba))
-							do {
-							i=generator.nextInt(5);
-							}
-							while (i!=prueba);
-							
-							switch (i) {
+							do{
+							switch (generator.nextInt(5)) {
 							case 0:
 								newColor = Color.YELLOW;
 								break;
@@ -111,8 +99,8 @@ public class MyMouseAdapter extends MouseAdapter {
 							case 4:
 								newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
-							}
-							prueba=1;
+							}}
+							while (bottomColor.equals(newColor));
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
 						}
